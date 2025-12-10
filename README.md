@@ -3,6 +3,10 @@
 This repository contains all required files for the final exam of  
 **Software Engineering in Construction Information Systems 2025**.
 
+---
+
+# 📌 ER Model (Mermaid)
+
 ```mermaid
 erDiagram
 
@@ -17,13 +21,21 @@ erDiagram
         int region_id FK
     }
 
+    INTERMEDIATE_REGION {
+        int intermediate_id PK
+        varchar intermediate_name
+        int subregion_id FK
+    }
+
     COUNTRY {
         int country_id PK
         varchar name
         char alpha2
         char alpha3
         int country_code
+        int region_id FK
         int subregion_id FK
+        int intermediate_id FK
     }
 
     MMRRECORD {
@@ -34,9 +46,15 @@ erDiagram
     }
 
     REGION ||--o{ SUBREGION : contains
-    SUBREGION ||--o{ COUNTRY : includes
+    SUBREGION ||--o{ INTERMEDIATE_REGION : contains
+    INTERMEDIATE_REGION ||--o{ COUNTRY : includes
     COUNTRY ||--o{ MMRRECORD : has
 ```
+
+## Student Info
+- Student ID: M11405103  
+- Name: 張梓榆
+
 
 ## Contents
 - ER Model
@@ -46,6 +64,5 @@ erDiagram
 - Documentation
 
 ## Student Info
-- Student ID: M11405103  
+- Student ID: M11405103
 - Name: 張梓榆
-
