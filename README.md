@@ -3,6 +3,7 @@
 This repository contains all required files for the final exam of  
 **Software Engineering in Construction Information Systems 2025**.
 
+````markdown
 ```mermaid
 erDiagram
 
