@@ -21,7 +21,7 @@ erDiagram
         varchar name
         char alpha2
         char alpha3
-        varchar country_code
+        int country_code
         int subregion_id FK
     }
 
@@ -29,12 +29,14 @@ erDiagram
         int record_id PK
         int country_id FK
         int year
-        int mmr
+        float mmr
     }
 
     REGION ||--o{ SUBREGION : contains
     SUBREGION ||--o{ COUNTRY : includes
     COUNTRY ||--o{ MMRRECORD : has
+
+
 
 ## Contents
 - ER Model (to be added)
