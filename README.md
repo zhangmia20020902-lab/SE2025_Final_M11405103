@@ -3,7 +3,6 @@
 This repository contains all required files for the final exam of  
 **Software Engineering in Construction Information Systems 2025**.
 
-````markdown
 ```mermaid
 erDiagram
 
@@ -37,11 +36,10 @@ erDiagram
     REGION ||--o{ SUBREGION : contains
     SUBREGION ||--o{ COUNTRY : includes
     COUNTRY ||--o{ MMRRECORD : has
-
-
+```
 
 ## Contents
-- ER Model (to be added)
+- ER Model
 - ETL.sql
 - Three-tier Web Application (Express + HTML + CSS + HTMX)
 - Docker Compose file
@@ -50,3 +48,4 @@ erDiagram
 ## Student Info
 - Student ID: M11405103  
 - Name: 張梓榆
+
