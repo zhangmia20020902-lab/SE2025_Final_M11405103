@@ -63,6 +63,4 @@ erDiagram
 - Docker Compose file
 - Documentation
 
-## Student Info
-- Student ID: M11405103
-- Name: 張梓榆
+
