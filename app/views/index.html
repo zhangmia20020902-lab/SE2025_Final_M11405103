@@ -2,73 +2,118 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>MMR Dashboard</title>
+    <title>Global Maternal Health Insights</title>
     <link rel="stylesheet" href="/style.css">
+
+    <style>
+        /* 首頁標題 */
+        .site-title {
+            text-align: center;
+            font-size: 44px;
+            font-weight: 800;
+            margin-top: 40px;
+            margin-bottom: 10px;
+            color: var(--headline);
+        }
+
+        /* 介紹文字 */
+        .intro-container {
+            max-width: 900px;
+            margin: 20px auto 40px;
+            padding: 35px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+            font-size: 18px;
+            line-height: 1.85;
+        }
+
+        .intro-container h1 {
+            font-size: 32px;
+            margin-bottom: 18px;
+            color: var(--headline);
+        }
+
+        .intro-container ul {
+            margin-left: 20px;
+            margin-top: 15px;
+        }
+
+        /* 4x2 按鈕區 */
+        .dashboard-buttons {
+            max-width: 1000px;
+            margin: 40px auto 80px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 22px;
+            padding: 0 20px;
+        }
+
+        .dash-btn {
+            text-align: center;
+            padding: 18px 10px;
+            background: var(--button);
+            color: var(--button-text);
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 10px;
+            transition: 0.25s ease;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+        }
+
+        .dash-btn:hover {
+            background: var(--highlight);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.18);
+        }
+    </style>
 </head>
 
 <body>
 
-    <!-- ⭐ 不在首頁顯示 Navbar -->
+    <!-- ⭐網站標題 -->
+    <div class="site-title">
+        Global Maternal Health Insights
+    </div>
 
-    <div class="page-container">
+    <!-- ⭐介紹內容 -->
+    <div class="intro-container">
+        <h1>Introduction</h1>
 
-        <h1>MMR Dashboard</h1>
-        <p class="dashboard-subtitle">
-            Explore, analyze, and manage global maternal mortality data.
+        <p>
+            The Maternal Mortality Ratio (MMR), which measures the number of maternal deaths per 100,000 live births, is an
+            indispensable metric for comparative global health analysis that reflects the extreme risks women face during pregnancy
+            and childbirth. It is a critical indicator of the quality, accessibility, and equity of a country's entire health system.
         </p>
 
-        <!-- ⭐ 功能卡片 Grid -->
-        <div class="dashboard-grid">
+        <p>The MMR offers powerful insights when comparing countries and regions:</p>
 
-            <a href="/country" class="dash-card">
-                <div class="icon">🌍</div>
-                <h3>1. Country MMR</h3>
-                <p>View yearly MMR of a selected country.</p>
-            </a>
+        <ul>
+            <li><b>Benchmarking Health System Gaps:</b> Comparing the MMR of different nations helps assess the capacity to provide essential maternal and neonatal healthcare.</li>
+            <li><b>Social & Gender Disparity Indicator:</b> MMR differences strongly correlate with poverty, gender inequality, and access to education.</li>
+            <li><b>Progress Tracking:</b> MMR trends help monitor global commitments such as the UN Sustainable Development Goals (SDG 3.1).</li>
+            <li><b>Improving Interventions:</b> Understanding where and why maternal deaths occur guides targeted policy improvements.</li>
+        </ul>
 
-            <a href="/subregion" class="dash-card">
-                <div class="icon">🗺️</div>
-                <h3>2. Subregion + Year</h3>
-                <p>See all countries in a subregion for a given year.</p>
-            </a>
+        <p>
+            In summary, the MMR is a vital and morally compelling statistic that reveals a country’s commitment to protecting the
+            health and survival of mothers during one of life’s most vulnerable stages.
+        </p>
+    </div>
 
-            <a href="/region" class="dash-card">
-                <div class="icon">📊</div>
-                <h3>3. Region Average</h3>
-                <p>Compare average MMR across subregions.</p>
-            </a>
+    <!-- ⭐功能按鈕 4x2 -->
+    <div class="dashboard-buttons">
 
-            <a href="/search-page" class="dash-card">
-                <div class="icon">🔎</div>
-                <h3>4. Keyword Search</h3>
-                <p>Find countries using partial text search.</p>
-            </a>
+        <a href="/country" class="dash-btn">Country MMR</a>
+        <a href="/subregion" class="dash-btn">Subregion + Year</a>
+        <a href="/region" class="dash-btn">Region Average</a>
+        <a href="/search-page" class="dash-btn">Keyword Search</a>
 
-            <a href="/add-mmr" class="dash-card">
-                <div class="icon">➕</div>
-                <h3>5. Add MMR</h3>
-                <p>Insert next-year MMR for any country.</p>
-            </a>
-
-            <a href="/update-mmr" class="dash-card">
-                <div class="icon">✏️</div>
-                <h3>6. Update MMR</h3>
-                <p>Edit an existing MMR value.</p>
-            </a>
-
-            <a href="/delete-mmr" class="dash-card">
-                <div class="icon">🗑️</div>
-                <h3>7. Delete Records</h3>
-                <p>Remove data within a selected year range.</p>
-            </a>
-
-            <a href="/trend" class="dash-card">
-                <div class="icon">📈</div>
-                <h3>8. Trend Chart</h3>
-                <p>Visualize MMR over time with slider control.</p>
-            </a>
-
-        </div>
+        <a href="/add-mmr" class="dash-btn">Add MMR</a>
+        <a href="/update-mmr" class="dash-btn">Update MMR</a>
+        <a href="/delete-mmr" class="dash-btn">Delete Records</a>
+        <a href="/trend" class="dash-btn">Trend Chart</a>
 
     </div>
 
