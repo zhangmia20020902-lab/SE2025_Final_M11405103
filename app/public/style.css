@@ -18,7 +18,8 @@ body {
     background-color: var(--bg);
     font-family: "Inter", "Noto Sans TC", sans-serif;
     color: var(--text);
-    line-height: 1.6;
+    line-height: 1.75;
+    font-size: 18px;
 }
 
 /* ========= NAVBAR ========= */
@@ -180,4 +181,9 @@ tr:nth-child(even) {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+}
+
+/* center all table text */
+table th, table td {
+    text-align: center;
 }

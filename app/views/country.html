@@ -2,36 +2,28 @@
 <html>
 <head>
     <title>MMR by Country</title>
-
-    <!-- 使用全站 style.css -->
     <link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
-
-    <!-- Navbar -->
     <%- include('partials/navbar.html', { page: 'country' }) %>
 
-    <!-- 主內容區（卡片樣式） -->
     <div class="page-container">
-
         <h2>MMR by Country</h2>
 
-        <form action="/country/result" method="GET" class="form-card">
+        <div class="form-card">
+            <form action="/country/result" method="GET">
 
-            <label>Select Country:</label>
-            <select name="country_id" required>
-                <% countries.forEach(c => { %>
-                    <option value="<%= c.country_id %>">
-                        <%= c.name %>
-                    </option>
-                <% }) %>
-            </select>
+                <label>Select Country:</label>
+                <select name="country_id" required>
+                    <% countries.forEach(c => { %>
+                        <option value="<%= c.country_id %>"><%= c.name %></option>
+                    <% }) %>
+                </select>
 
-            <button type="submit" class="btn-primary">Show MMR</button>
-
-        </form>
-
+                <button type="submit" class="btn-primary">Show MMR</button>
+            </form>
+        </div>
     </div>
 
 </body>
