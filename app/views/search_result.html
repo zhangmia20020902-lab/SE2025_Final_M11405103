@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Search Results</title>
+</head>
+
+<body>
+    <%- include('partials/navbar.html', { page: 'search' }) %>
+
+    <h2>Search Results</h2>
+
+    <table border="1" cellpadding="8">
+        <tr>
+            <th>Country</th>
+            <th>Latest Year</th>
+            <th>MMR</th>
+        </tr>
+
+        <% if (results.length === 0) { %>
+            <tr><td colspan="3">No results found.</td></tr>
+        <% } %>
+
+        <% results.forEach(r => { %>
+            <tr>
+                <td><%= r.name %></td>
+                <td><%= r.year %></td>
+                <td><%= r.mmr %></td>
+            </tr>
+        <% }) %>
+
+    </table>
+
+</body>
+</html>

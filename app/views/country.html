@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MMR by Country</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+        select, button {
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+        button {
+            background: #4A90E2;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #357ABD;
+        }
+    </style>
+</head>
+
+<body>
+    <%- include('partials/navbar.html', { page: 'country' }) %>
+    <h2>MMR by Country</h2>
+
+    <form action="/country/result" method="GET">
+        <label>Select Country:</label><br>
+
+        <select name="country_id" required>
+            <% countries.forEach(c => { %>
+                <option value="<%= c.country_id %>">
+                    <%= c.name %>
+                </option>
+            <% }) %>
+        </select>
+
+        <br>
+        <button type="submit">Show MMR</button>
+    </form>
+
+</body>
+</html>

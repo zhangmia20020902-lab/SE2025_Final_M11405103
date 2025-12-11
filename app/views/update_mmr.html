@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update MMR</title>
+
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+        select, input, button {
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+        button {
+            background: #4A90E2;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #357ABD;
+        }
+    </style>
+</head>
+
+<body>
+    <%- include('partials/navbar.html', { page: 'update' }) %>
+    <h2>Update Existing MMR</h2>
+
+    <!-- Step 1: Select Country -->
+    <label>Select Country:</label><br>
+    <select name="country_id"
+            hx-get="/update-mmr/load-years"
+            hx-target="#year-select"
+            hx-trigger="change">
+        <option value="">-- choose country --</option>
+
+        <% countries.forEach(c => { %>
+            <option value="<%= c.country_id %>"><%= c.name %></option>
+        <% }); %>
+    </select>
+
+    <div id="year-select">
+        <!-- HTMX will load year dropdown here -->
+        <p>Please select a country first.</p>
+    </div>
+
+    <p><a href="/">← Back to Dashboard</a></p>
+</body>
+</html>

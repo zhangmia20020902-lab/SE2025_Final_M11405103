@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>MMR Trend Chart</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+
+        select,
+        button {
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+
+        button {
+            background: #4A90E2;
+            color: white;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #357ABD;
+        }
+
+        #chart-container {
+            width: 700px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <%- include('partials/navbar.html', { page: 'trend' }) %>
+
+    <h2>MMR Trend Chart (Country)</h2>
+
+    <form id="trendForm">
+
+        <label>Select Country:</label><br>
+        <select id="country_id" required>
+            <% countries.forEach(c=> { %>
+                <option value="<%= c.country_id %>">
+                    <%= c.name %>
+                </option>
+                <% }) %>
+        </select>
+
+        <br><br>
+
+        <!-- ⭐ 年份區間滑桿 -->
+        <label>Year Range:</label>
+        <br>
+
+        <input type="range" id="startYear" min="1990" max="2025" value="2000">
+        <span id="startLabel">2000</span>
+
+        <br>
+
+        <input type="range" id="endYear" min="1990" max="2025" value="2020">
+        <span id="endLabel">2020</span>
+
+        <br><br>
+
+        <button type="submit">Show Trend</button>
+    </form>
+
+
+    <div id="chart-container">
+        <canvas id="trendChart"></canvas>
+    </div>
+
+    <p><a href="/">← Back to Dashboard</a></p>
+
+    <script>
+    let chart;
+
+    const startSlider = document.getElementById("startYear");
+    const endSlider = document.getElementById("endYear");
+    const startLabel = document.getElementById("startLabel");
+    const endLabel = document.getElementById("endLabel");
+
+    // 更新顯示滑桿文字
+    startSlider.oninput = () => startLabel.innerText = startSlider.value;
+    endSlider.oninput = () => endLabel.innerText = endSlider.value;
+
+    document.getElementById("trendForm").addEventListener("submit", async function(e) {
+        e.preventDefault();
+
+        const countryId = document.getElementById("country_id").value;
+        const startYear = parseInt(startSlider.value);
+        const endYear = parseInt(endSlider.value);
+
+        // 抓後端資料
+        const res = await fetch(`/trend-data?country_id=${countryId}`);
+        const raw = await res.json();
+
+        // 依照年份區間過濾
+        const data = raw.filter(r => r.year >= startYear && r.year <= endYear);
+
+        const years = data.map(r => r.year);
+        const mmrs = data.map(r => r.mmr);
+
+        if (chart) chart.destroy();
+
+        const ctx = document.getElementById("trendChart").getContext("2d");
+
+        // ⭐ 漸層效果
+        const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+        gradient.addColorStop(0, "rgba(74,144,226,0.5)");
+        gradient.addColorStop(1, "rgba(74,144,226,0.05)");
+
+        chart = new Chart(ctx, {
+            type: "line",
+            data: {
+                labels: years,
+                datasets: [{
+                    label: "MMR Trend",
+                    data: mmrs,
+                    fill: true,
+                    backgroundColor: gradient,
+                    borderColor: "#4A90E2",
+                    borderWidth: 4,
+                    tension: 0.35,
+                    pointBackgroundColor: "#fff",
+                    pointRadius: 5,
+                    pointHoverRadius: 10,
+                    pointHoverBackgroundColor: "#4A90E2",
+                    pointBorderColor: "#4A90E2",
+                    pointHoverBorderWidth: 3
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { labels: { font: { size: 16 } } },
+                    tooltip: {
+                        backgroundColor: "#4A90E2",
+                        titleFont: { size: 16 },
+                        bodyFont: { size: 14 }
+                    }
+                },
+                scales: {
+                    y: { ticks: { font: { size: 14 } } },
+                    x: { ticks: { font: { size: 14 } } }
+                }
+            }
+        });
+    });
+</script>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+services:
+  final-mysql:
+    image: mysql:8.0
+    container_name: final-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: Mia20020902!
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./data:/var/lib/mysql-files
+      - ./ETL.sql:/docker-entrypoint-initdb.d/ETL.sql:ro
+    networks:
+      - mynet
+
+  final-express:
+    build: ./app
+    container_name: final-express
+    ports:
+      - "3000:3000"
+    environment:
+      DB_HOST: final-mysql
+      DB_USER: root
+      DB_PASS: Mia20020902!
+      DB_NAME: mmr2025
+    depends_on:
+      - final-mysql
+    networks:
+      - mynet
+
+networks:
+  mynet:

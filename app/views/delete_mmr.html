@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete MMR Records</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+        select, input, button {
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+        button {
+            background: #E74C3C;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #C0392B;
+        }
+    </style>
+</head>
+
+<body>
+    <%- include('partials/navbar.html', { page: 'delete' }) %>
+    <h2>Delete MMR Records (Year Range)</h2>
+
+    <form action="/delete-mmr" method="POST">
+        <label>Select Country:</label><br>
+        <select name="country_id" required>
+            <% countries.forEach(c => { %>
+                <option value="<%= c.country_id %>"><%= c.name %></option>
+            <% }); %>
+        </select>
+
+        <br>
+
+        <label>Start Year:</label><br>
+        <input type="number" name="start_year" required>
+
+        <br>
+
+        <label>End Year:</label><br>
+        <input type="number" name="end_year" required>
+
+        <br>
+        <button type="submit">Delete Records</button>
+    </form>
+
+    <p><a href="/">← Back to Dashboard</a></p>
+</body>
+</html>
