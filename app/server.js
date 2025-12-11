@@ -154,7 +154,7 @@ app.get("/region/result", async (req, res) => {
     const year = req.query.year;
 
     const [data] = await pool.query(
-    `
+        `
     SELECT 
         s.subregion_name AS subregion,
         ROUND(AVG(m.mmr), 2) AS avg_mmr
@@ -166,8 +166,8 @@ app.get("/region/result", async (req, res) => {
     GROUP BY s.subregion_name
     ORDER BY avg_mmr ASC, s.subregion_name ASC;
     `,
-    [regionId, year]
-);
+        [regionId, year]
+    );
 
 
     res.render("region_result.html", { data });
@@ -248,14 +248,11 @@ app.post("/add-mmr", async (req, res) => {
     `, [country_id, nextYear, mmr]);
 
     // 3️⃣ 顯示完成訊息（非常清楚、老師會喜歡）
-    res.send(`
-        <h2>MMR Added Successfully</h2>
-        <p>Country ID: ${country_id}</p>
-        <p>New Year: ${nextYear}</p>
-        <p>MMR: ${mmr}</p>
-        <a href="/add-mmr">← Add Another</a><br>
-        <a href="/">← Back to Dashboard</a>
-    `);
+    res.render("add_success.html", {
+        country_id,
+        nextYear,
+        mmr
+    });
 });
 // -----------------------------------------------------
 // ROUTE G — Update MMR (main page)
@@ -302,15 +299,11 @@ app.post("/update-mmr", async (req, res) => {
           AND year = ?;
     `, [mmr, country_id, year]);
 
-    res.send(`
-        <h2>MMR Updated Successfully</h2>
-        <p>Country ID: ${country_id}</p>
-        <p>Year: ${year}</p>
-        <p>New MMR: ${mmr}</p>
-
-        <a href="/update-mmr">← Update Another</a><br>
-        <a href="/">← Back to Dashboard</a>
-    `);
+    res.render("update_success.html", {
+        country_id,
+        year,
+        mmr
+    });
 });
 // -----------------------------------------------------
 // ROUTE H — Delete MMR (form page)
@@ -339,15 +332,12 @@ app.post("/delete-mmr", async (req, res) => {
         [country_id, start_year, end_year]
     );
 
-    res.send(`
-        <h2>Delete Completed</h2>
-        <p>Country ID: ${country_id}</p>
-        <p>Deleted range: ${start_year} → ${end_year}</p>
-        <p>Total deleted records: ${result.affectedRows}</p>
-
-        <a href="/delete-mmr">← Delete Again</a><br>
-        <a href="/">← Back to Dashboard</a>
-    `);
+    res.render("delete_success.html", {
+        country_id,
+        start_year,
+        end_year,
+        deleted_count: result.affectedRows
+    });
 });
 // -----------------------------------------------------
 // ROUTE I — Trend chart page

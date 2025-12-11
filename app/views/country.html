@@ -6,6 +6,8 @@
 </head>
 
 <body>
+
+    <!-- Navbar -->
     <%- include('partials/navbar.html', { page: 'country' }) %>
 
     <div class="page-container">
@@ -13,7 +15,6 @@
 
         <div class="form-card">
             <form action="/country/result" method="GET">
-
                 <label>Select Country:</label>
                 <select name="country_id" required>
                     <% countries.forEach(c => { %>
@@ -21,9 +22,13 @@
                     <% }) %>
                 </select>
 
-                <button type="submit" class="btn-primary">Show MMR</button>
+                <button type="submit">Show MMR</button>
             </form>
         </div>
+
+        <!-- 🔴 Back to Dashboard -->
+        <a href="/" class="back-link">← Back to Dashboard</a>
+
     </div>
 
 </body>

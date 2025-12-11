@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MMR Updated</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+
+    <!-- 傳 page: 'update' 進去 -->
+    <%- include("partials/navbar.html", { page: "update" }) %>
+
+    <div class="page-container">
+        <div class="form-card">
+            <h2>MMR Updated Successfully</h2>
+
+            <p><strong>Country ID:</strong> <%= country_id %></p>
+            <p><strong>Year:</strong> <%= year %></p>
+            <p><strong>New MMR:</strong> <%= mmr %></p>
+
+            <a class="back-link" href="/update-mmr">← Update Another</a><br>
+            <a class="back-link" href="/">← Back to Dashboard</a>
+        </div>
+    </div>
+
+</body>
+</html>
