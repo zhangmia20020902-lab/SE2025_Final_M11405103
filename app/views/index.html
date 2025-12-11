@@ -3,67 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <title>MMR Dashboard</title>
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background: #f4f6f9;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .container {
-            text-align: center;
-            width: 450px;
-            padding: 30px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
-        }
-
-        h1 {
-            margin-bottom: 25px;
-            font-size: 28px;
-            color: #333;
-        }
-
-        .btn {
-            display: block;
-            width: 100%;
-            padding: 14px 0;
-            margin: 10px 0;
-            font-size: 18px;
-            text-decoration: none;
-            color: white;
-            background: #4A90E2;
-            border-radius: 8px;
-            transition: 0.2s;
-        }
-
-        .btn:hover {
-            background: #357ABD;
-        }
-    </style>
+    <link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
-    
-    <div class="container">
-        <h1>MMR Dashboard</h1>
 
-        <a href="/country" class="btn">1. View MMR by Country</a>
-        <a href="/subregion" class="btn">2. MMR by Subregion & Year</a>
-        <a href="/region" class="btn">3. Average MMR by Region & Year</a>
-        <a href="/search-page" class="btn">4. Search Countries (Keyword)</a>
-        <a href="/add-mmr" class="btn">5. Add Next-Year MMR</a>
-        <a href="/update-mmr" class="btn">6. Update Existing MMR</a>
-        <a href="/delete-mmr" class="btn">7. Delete MMR (Year Range)</a>
-        <a href="/trend" class="btn">8. MMR Trend Chart (New)</a>
+    <!-- ⭐ 不在首頁顯示 Navbar -->
+
+    <div class="page-container">
+
+        <h1>MMR Dashboard</h1>
+        <p class="dashboard-subtitle">
+            Explore, analyze, and manage global maternal mortality data.
+        </p>
+
+        <!-- ⭐ 功能卡片 Grid -->
+        <div class="dashboard-grid">
+
+            <a href="/country" class="dash-card">
+                <div class="icon">🌍</div>
+                <h3>1. Country MMR</h3>
+                <p>View yearly MMR of a selected country.</p>
+            </a>
+
+            <a href="/subregion" class="dash-card">
+                <div class="icon">🗺️</div>
+                <h3>2. Subregion + Year</h3>
+                <p>See all countries in a subregion for a given year.</p>
+            </a>
+
+            <a href="/region" class="dash-card">
+                <div class="icon">📊</div>
+                <h3>3. Region Average</h3>
+                <p>Compare average MMR across subregions.</p>
+            </a>
+
+            <a href="/search-page" class="dash-card">
+                <div class="icon">🔎</div>
+                <h3>4. Keyword Search</h3>
+                <p>Find countries using partial text search.</p>
+            </a>
+
+            <a href="/add-mmr" class="dash-card">
+                <div class="icon">➕</div>
+                <h3>5. Add MMR</h3>
+                <p>Insert next-year MMR for any country.</p>
+            </a>
+
+            <a href="/update-mmr" class="dash-card">
+                <div class="icon">✏️</div>
+                <h3>6. Update MMR</h3>
+                <p>Edit an existing MMR value.</p>
+            </a>
+
+            <a href="/delete-mmr" class="dash-card">
+                <div class="icon">🗑️</div>
+                <h3>7. Delete Records</h3>
+                <p>Remove data within a selected year range.</p>
+            </a>
+
+            <a href="/trend" class="dash-card">
+                <div class="icon">📈</div>
+                <h3>8. Trend Chart</h3>
+                <p>Visualize MMR over time with slider control.</p>
+            </a>
+
+        </div>
 
     </div>
+
 </body>
 </html>

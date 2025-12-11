@@ -3,37 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <title>Region Average MMR</title>
+    <link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
+
+    <!-- Navbar -->
     <%- include('partials/navbar.html', { page: 'region' }) %>
 
-    <h2>Region Average MMR</h2>
+    <div class="page-container">
 
-    <table border="1" cellpadding="8">
-        <tr>
-            <th>Subregion</th>
-            <th>Average MMR</th>
-        </tr>
+        <h2>Region Average MMR</h2>
 
-        <% if (data.length === 0) { %>
-            <tr><td colspan="2">No data found.</td></tr>
-        <% } %>
+        <div class="table-card">
+            <table>
+                <tr>
+                    <th>Subregion</th>
+                    <th>Average MMR</th>
+                </tr>
 
-        <% data.forEach(row => { %>
-            <tr>
-                <td><%= row.subregion %></td>
-                <td>
-                    <% if (row.avg_mmr === null) { %>
-                        N/A
-                    <% } else { %>
-                        <%= Number(row.avg_mmr).toFixed(2) %>
-                    <% } %>
-                </td>
-            </tr>
-        <% }) %>
+                <% if (data.length === 0) { %>
+                    <tr>
+                        <td colspan="2" style="text-align:center; padding: 18px;">
+                            No data found.
+                        </td>
+                    </tr>
+                <% } %>
 
-    </table>
+                <% data.forEach(row => { %>
+                    <tr>
+                        <td><%= row.subregion %></td>
+                        <td>
+                            <% if (row.avg_mmr === null) { %>
+                                N/A
+                            <% } else { %>
+                                <%= Number(row.avg_mmr).toFixed(2) %>
+                            <% } %>
+                        </td>
+                    </tr>
+                <% }) %>
+            </table>
+        </div>
+
+        <a href="/region" class="back-link">← Back</a>
+
+    </div>
 
 </body>
 </html>

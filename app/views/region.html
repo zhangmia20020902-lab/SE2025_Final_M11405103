@@ -1,37 +1,48 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>Region → Subregion Avg MMR</title>
+    <link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
+
+    <!-- Navbar -->
     <%- include('partials/navbar.html', { page: 'region' }) %>
 
-    <h2>Average MMR by Subregion</h2>
+    <div class="page-container">
 
-    <form action="/region/result" method="GET">
-        <label>Region:</label>
-        <select name="region">
-            <% regions.forEach(r=> { %>
-                <option value="<%= r.region_id %>">
-                    <%= r.region_name %>
-                </option>
-                <% }) %>
-        </select>
+        <h2>Average MMR by Subregion</h2>
 
-        <label>Year:</label>
-        <select name="year">
-            <% years.forEach(y=> { %>
-                <option value="<%= y.year %>">
-                    <%= y.year %>
-                </option>
-                <% }) %>
-        </select>
+        <div class="form-card">
+            <form action="/region/result" method="GET">
 
-        <button type="submit">Search</button>
-    </form>
+                <label for="region">Region:</label>
+                <select name="region" id="region" required>
+                    <% regions.forEach(r => { %>
+                        <option value="<%= r.region_id %>">
+                            <%= r.region_name %>
+                        </option>
+                    <% }) %>
+                </select>
+
+                <label for="year">Year:</label>
+                <select name="year" id="year" required>
+                    <% years.forEach(y => { %>
+                        <option value="<%= y.year %>">
+                            <%= y.year %>
+                        </option>
+                    <% }) %>
+                </select>
+
+                <button type="submit" class="btn-primary">Search</button>
+
+            </form>
+        </div>
+
+        <a href="/" class="back-link">← Back to Dashboard</a>
+
+    </div>
 
 </body>
-
 </html>

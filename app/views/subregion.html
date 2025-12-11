@@ -2,30 +2,43 @@
 <html>
 <head>
     <title>Subregion MMR</title>
+    <link rel="stylesheet" href="/style.css">
 </head>
+
 <body>
+    <!-- Navbar -->
     <%- include('partials/navbar.html', { page: 'subregion' }) %>
-    <h2>MMR by Subregion</h2>
 
-    <!-- ⭐ 改成一般表單，不能用 HTMX -->
-    <form action="/subregion/result" method="GET">
+    <div class="page-container">
+        <h2>MMR by Subregion</h2>
 
-        <label>Subregion:</label>
-        <select name="subregion">
-            <% subregions.forEach(s => { %>
-                <option value="<%= s.subregion_id %>"><%= s.subregion_name %></option>
-            <% }); %>
-        </select>
+        <div class="form-card">
+            <form action="/subregion/result" method="GET">
 
-        <label>Year:</label>
-        <select name="year">
-            <% years.forEach(y => { %>
-                <option value="<%= y %>"><%= y %></option>
-            <% }); %>
-        </select>
+                <label for="subregion">Subregion:</label>
+                <select name="subregion" id="subregion" required>
+                    <% subregions.forEach(s => { %>
+                        <option value="<%= s.subregion_id %>">
+                            <%= s.subregion_name %>
+                        </option>
+                    <% }) %>
+                </select>
 
-        <button type="submit">Search</button>
-    </form>
+                <label for="year">Year:</label>
+                <select name="year" id="year" required>
+                    <% years.forEach(y => { %>
+                        <option value="<%= y %>">
+                            <%= y %>
+                        </option>
+                    <% }) %>
+                </select>
+
+                <button type="submit" class="btn-primary">Search</button>
+            </form>
+        </div>
+
+        <a href="/dashboard" class="back-link">← Back to Dashboard</a>
+    </div>
 
 </body>
 </html>

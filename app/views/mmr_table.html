@@ -2,51 +2,37 @@
 <html>
 <head>
     <title>MMR Result</title>
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 40px;
-        }
-        table {
-            border-collapse: collapse;
-            width: 400px;
-        }
-        th, td {
-            border: 1px solid #bbb;
-            padding: 8px;
-            text-align: center;
-        }
-        th {
-            background: #eee;
-        }
-        a {
-            display: inline-block;
-            margin-top: 20px;
-            text-decoration: none;
-            color: #0066cc;
-        }
-    </style>
+    <link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
+
+    <!-- Navbar -->
     <%- include('partials/navbar.html', { page: 'country' }) %>
-    <h2>MMR for <%= countryName %></h2>
 
-    <table>
-        <tr>
-            <th>Year</th>
-            <th>MMR</th>
-        </tr>
+    <div class="page-container">
 
-        <% data.forEach(row => { %>
-            <tr>
-                <td><%= row.year %></td>
-                <td><%= row.mmr %></td>
-            </tr>
-        <% }) %>
-    </table>
+        <h2>MMR for <%= countryName %></h2>
 
-    <a href="/country">← Back</a>
+        <div class="table-card">
+            <table>
+                <tr>
+                    <th>Year</th>
+                    <th>MMR</th>
+                </tr>
+
+                <% data.forEach(row => { %>
+                    <tr>
+                        <td><%= row.year %></td>
+                        <td><%= row.mmr %></td>
+                    </tr>
+                <% }) %>
+            </table>
+        </div>
+
+        <a href="/country" class="back-link">← Back</a>
+
+    </div>
+
 </body>
 </html>

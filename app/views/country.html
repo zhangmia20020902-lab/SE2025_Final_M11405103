@@ -3,47 +3,36 @@
 <head>
     <title>MMR by Country</title>
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 40px;
-        }
-        select, button {
-            padding: 10px;
-            font-size: 16px;
-            margin: 10px 0;
-        }
-        button {
-            background: #4A90E2;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-        button:hover {
-            background: #357ABD;
-        }
-    </style>
+    <!-- 使用全站 style.css -->
+    <link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
+
+    <!-- Navbar -->
     <%- include('partials/navbar.html', { page: 'country' }) %>
-    <h2>MMR by Country</h2>
 
-    <form action="/country/result" method="GET">
-        <label>Select Country:</label><br>
+    <!-- 主內容區（卡片樣式） -->
+    <div class="page-container">
 
-        <select name="country_id" required>
-            <% countries.forEach(c => { %>
-                <option value="<%= c.country_id %>">
-                    <%= c.name %>
-                </option>
-            <% }) %>
-        </select>
+        <h2>MMR by Country</h2>
 
-        <br>
-        <button type="submit">Show MMR</button>
-    </form>
+        <form action="/country/result" method="GET" class="form-card">
+
+            <label>Select Country:</label>
+            <select name="country_id" required>
+                <% countries.forEach(c => { %>
+                    <option value="<%= c.country_id %>">
+                        <%= c.name %>
+                    </option>
+                <% }) %>
+            </select>
+
+            <button type="submit" class="btn-primary">Show MMR</button>
+
+        </form>
+
+    </div>
 
 </body>
 </html>

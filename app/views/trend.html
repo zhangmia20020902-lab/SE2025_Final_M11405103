@@ -1,164 +1,130 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>MMR Trend Chart</title>
+    <link rel="stylesheet" href="/style.css">
 
+    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 40px;
-        }
-
-        select,
-        button {
-            padding: 10px;
-            font-size: 16px;
-            margin: 10px 0;
-        }
-
-        button {
-            background: #4A90E2;
-            color: white;
-            border-radius: 6px;
-            border: none;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background: #357ABD;
-        }
-
-        #chart-container {
-            width: 700px;
-            margin-top: 30px;
-        }
-    </style>
 </head>
 
 <body>
+
+    <!-- Navbar -->
     <%- include('partials/navbar.html', { page: 'trend' }) %>
 
-    <h2>MMR Trend Chart (Country)</h2>
+    <div class="page-container">
 
-    <form id="trendForm">
+        <h2>MMR Trend Chart</h2>
 
-        <label>Select Country:</label><br>
-        <select id="country_id" required>
-            <% countries.forEach(c=> { %>
-                <option value="<%= c.country_id %>">
-                    <%= c.name %>
-                </option>
-                <% }) %>
-        </select>
+        <!-- Form Card -->
+        <div class="form-card">
+            <form id="trendForm">
 
-        <br><br>
+                <label for="country_id">Select Country:</label>
+                <select id="country_id" required>
+                    <% countries.forEach(c => { %>
+                        <option value="<%= c.country_id %>"><%= c.name %></option>
+                    <% }) %>
+                </select>
 
-        <!-- ⭐ 年份區間滑桿 -->
-        <label>Year Range:</label>
-        <br>
+                <!-- Year Range -->
+                <label>Year Range:</label>
 
-        <input type="range" id="startYear" min="1990" max="2025" value="2000">
-        <span id="startLabel">2000</span>
+                <div class="slider-row">
+                    <input type="range" id="startYear" min="1990" max="2025" value="2000">
+                    <span id="startLabel" class="slider-label">2000</span>
+                </div>
 
-        <br>
+                <div class="slider-row">
+                    <input type="range" id="endYear" min="1990" max="2025" value="2020">
+                    <span id="endLabel" class="slider-label">2020</span>
+                </div>
 
-        <input type="range" id="endYear" min="1990" max="2025" value="2020">
-        <span id="endLabel">2020</span>
+                <button type="submit" class="btn-primary">Show Trend</button>
+            </form>
+        </div>
 
-        <br><br>
+        <!-- Chart Container -->
+        <div class="chart-card">
+            <canvas id="trendChart"></canvas>
+        </div>
 
-        <button type="submit">Show Trend</button>
-    </form>
-
-
-    <div id="chart-container">
-        <canvas id="trendChart"></canvas>
+        <a href="/" class="back-link">← Back to Dashboard</a>
     </div>
 
-    <p><a href="/">← Back to Dashboard</a></p>
 
+    <!-- JS Logic -->
     <script>
-    let chart;
+        let chart;
 
-    const startSlider = document.getElementById("startYear");
-    const endSlider = document.getElementById("endYear");
-    const startLabel = document.getElementById("startLabel");
-    const endLabel = document.getElementById("endLabel");
+        const startSlider = document.getElementById("startYear");
+        const endSlider = document.getElementById("endYear");
+        const startLabel = document.getElementById("startLabel");
+        const endLabel = document.getElementById("endLabel");
 
-    // 更新顯示滑桿文字
-    startSlider.oninput = () => startLabel.innerText = startSlider.value;
-    endSlider.oninput = () => endLabel.innerText = endSlider.value;
+        startSlider.oninput = () => startLabel.innerText = startSlider.value;
+        endSlider.oninput = () => endLabel.innerText = endSlider.value;
 
-    document.getElementById("trendForm").addEventListener("submit", async function(e) {
-        e.preventDefault();
+        document.getElementById("trendForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
 
-        const countryId = document.getElementById("country_id").value;
-        const startYear = parseInt(startSlider.value);
-        const endYear = parseInt(endSlider.value);
+            const countryId = document.getElementById("country_id").value;
+            const startYear = parseInt(startSlider.value);
+            const endYear = parseInt(endSlider.value);
 
-        // 抓後端資料
-        const res = await fetch(`/trend-data?country_id=${countryId}`);
-        const raw = await res.json();
+            const res = await fetch(`/trend-data?country_id=${countryId}`);
+            const raw = await res.json();
 
-        // 依照年份區間過濾
-        const data = raw.filter(r => r.year >= startYear && r.year <= endYear);
+            const data = raw.filter(r => r.year >= startYear && r.year <= endYear);
 
-        const years = data.map(r => r.year);
-        const mmrs = data.map(r => r.mmr);
+            const years = data.map(r => r.year);
+            const mmrs = data.map(r => r.mmr);
 
-        if (chart) chart.destroy();
+            const ctx = document.getElementById("trendChart").getContext("2d");
 
-        const ctx = document.getElementById("trendChart").getContext("2d");
+            if (chart) chart.destroy();
 
-        // ⭐ 漸層效果
-        const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-        gradient.addColorStop(0, "rgba(74,144,226,0.5)");
-        gradient.addColorStop(1, "rgba(74,144,226,0.05)");
+            const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+            gradient.addColorStop(0, "rgba(140,120,81,0.4)");
+            gradient.addColorStop(1, "rgba(140,120,81,0.05)");
 
-        chart = new Chart(ctx, {
-            type: "line",
-            data: {
-                labels: years,
-                datasets: [{
-                    label: "MMR Trend",
-                    data: mmrs,
-                    fill: true,
-                    backgroundColor: gradient,
-                    borderColor: "#4A90E2",
-                    borderWidth: 4,
-                    tension: 0.35,
-                    pointBackgroundColor: "#fff",
-                    pointRadius: 5,
-                    pointHoverRadius: 10,
-                    pointHoverBackgroundColor: "#4A90E2",
-                    pointBorderColor: "#4A90E2",
-                    pointHoverBorderWidth: 3
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: { labels: { font: { size: 16 } } },
-                    tooltip: {
-                        backgroundColor: "#4A90E2",
-                        titleFont: { size: 16 },
-                        bodyFont: { size: 14 }
-                    }
+            chart = new Chart(ctx, {
+                type: "line",
+                data: {
+                    labels: years,
+                    datasets: [{
+                        label: "MMR Trend",
+                        data: mmrs,
+                        fill: true,
+                        backgroundColor: gradient,
+                        borderColor: "#8c7851",
+                        borderWidth: 3,
+                        tension: 0.35,
+                        pointBackgroundColor: "#fff",
+                        pointRadius: 5,
+                        pointHoverRadius: 10,
+                        pointHoverBackgroundColor: "#8c7851"
+                    }]
                 },
-                scales: {
-                    y: { ticks: { font: { size: 14 } } },
-                    x: { ticks: { font: { size: 14 } } }
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { labels: { font: { size: 14 } } },
+                        tooltip: {
+                            backgroundColor: "#8c7851",
+                            titleFont: { size: 16 },
+                            bodyFont: { size: 14 }
+                        }
+                    },
+                    scales: {
+                        y: { ticks: { font: { size: 13 } } },
+                        x: { ticks: { font: { size: 13 } } }
+                    }
                 }
-            }
+            });
         });
-    });
-</script>
-
-
+    </script>
 
 </body>
-
 </html>

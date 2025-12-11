@@ -6,41 +6,37 @@
     <!-- HTMX -->
     <script src="https://unpkg.com/htmx.org@1.9.10"></script>
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 40px;
-        }
-        input {
-            padding: 8px;
-            font-size: 16px;
-            width: 300px;
-            margin-bottom: 20px;
-        }
-        button {
-            padding: 8px 16px;
-            font-size: 16px;
-        }
-    </style>
+    <link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
+
+    <!-- Navbar -->
     <%- include('partials/navbar.html', { page: 'search' }) %>
-    <h2>Search Countries</h2>
 
-    <!-- ⭐ 改成 form + 按鈕（Safari 100% 支援） -->
-    <form hx-get="/search"
-          hx-target="#result"
-          hx-swap="innerHTML">
+    <div class="page-container">
 
-        <input type="text" name="q" placeholder="Type a country name...">
+        <h2>Search Countries</h2>
 
-        <button type="submit">Search</button>
-    </form>
+        <div class="form-card">
+            <form hx-get="/search"
+                  hx-target="#result"
+                  hx-swap="innerHTML">
 
-    <div id="result"></div>
+                <label for="searchBox">Keyword:</label>
+                <input type="text"
+                       id="searchBox"
+                       name="q"
+                       placeholder="Type a country name..."
+                       autocomplete="off">
+
+                <button type="submit" class="btn-primary">Search</button>
+            </form>
+        </div>
+
+        <div id="result" class="table-card"></div>
+
+    </div>
 
 </body>
 </html>
-
-

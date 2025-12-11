@@ -1,33 +1,4 @@
-<style>
-    .navbar {
-        background: #f8f8f8;
-        padding: 12px 20px;
-        display: flex;
-        gap: 20px;
-        align-items: center;
-        border-bottom: 1px solid #ddd;
-        font-family: Arial, sans-serif;
-    }
-
-    .navbar a {
-        text-decoration: none;
-        color: #333;
-        font-size: 16px;
-        padding: 6px 10px;
-        border-radius: 6px;
-        transition: 0.2s;
-    }
-
-    .navbar a:hover {
-        background: #e6e6e6;
-    }
-
-    .navbar .active {
-        background: #4A90E2;
-        color: white;
-    }
-</style>
-
+<!-- navbar.html  (NO inline CSS) -->
 <div class="navbar">
     <a href="/" class="<%= page === 'home' ? 'active' : '' %>">Home</a>
     <a href="/country" class="<%= page === 'country' ? 'active' : '' %>">Country MMR</a>

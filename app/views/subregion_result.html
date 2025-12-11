@@ -3,33 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <title>Subregion MMR Results</title>
+    <link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
+    <!-- Navbar -->
     <%- include('partials/navbar.html', { page: 'subregion' }) %>
 
-    <h2>Subregion Results</h2>
+    <div class="page-container">
+        <h2>Subregion Results</h2>
 
-    <table border="1" cellpadding="8">
-        <tr>
-            <th>Country</th>
-            <th>Latest MMR</th>
-            <th>Year</th>
-        </tr>
-
-        <% if (data.length === 0) { %>
-            <tr><td colspan="3">No matching countries found</td></tr>
-        <% } else { %>
-            <% data.forEach(row => { %>
+        <div class="table-card">
+            <table>
                 <tr>
-                    <td><%= row.name %></td>
-                    <td><%= row.mmr %></td>
-                    <td><%= row.year %></td>
+                    <th>Country</th>
+                    <th>Latest MMR</th>
+                    <th>Year</th>
                 </tr>
-            <% }) %>
-        <% } %>
 
-    </table>
+                <% if (data.length === 0) { %>
+                    <tr>
+                        <td colspan="3" style="text-align:center; padding: 20px;">
+                            No matching countries found
+                        </td>
+                    </tr>
+                <% } else { %>
+                    <% data.forEach(row => { %>
+                        <tr>
+                            <td><%= row.name %></td>
+                            <td><%= row.mmr %></td>
+                            <td><%= row.year %></td>
+                        </tr>
+                    <% }) %>
+                <% } %>
+            </table>
+        </div>
+
+        <a href="/subregion" class="back-link">← Back</a>
+    </div>
 
 </body>
 </html>

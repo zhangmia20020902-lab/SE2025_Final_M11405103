@@ -2,56 +2,39 @@
 <html>
 <head>
     <title>Add Next Year MMR</title>
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 40px;
-        }
-        select, input, button {
-            padding: 10px;
-            font-size: 16px;
-            margin: 10px 0;
-        }
-        button {
-            background: #4A90E2;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-        button:hover {
-            background: #357ABD;
-        }
-    </style>
+    <link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
+
+    <!-- Navbar -->
     <%- include('partials/navbar.html', { page: 'add' }) %>
 
-    <h2>Add Next-Year MMR</h2>
+    <div class="page-container">
 
-    <form action="/add-mmr" method="POST">
-        <label>Select Country:</label><br>
-        <select name="country_id" required>
-            <% countries.forEach(c => { %>
-                <option value="<%= c.country_id %>"><%= c.name %></option>
-            <% }) %>
-        </select>
+        <h2>Add Next-Year MMR</h2>
 
-        <br>
+        <div class="form-card">
+            <form action="/add-mmr" method="POST">
 
-        <label>MMR Value for Next Year:</label><br>
-        <input type="number" name="mmr" step="0.01" required>
+                <label for="country_id">Select Country:</label>
+                <select name="country_id" id="country_id" required>
+                    <% countries.forEach(c => { %>
+                        <option value="<%= c.country_id %>"><%= c.name %></option>
+                    <% }) %>
+                </select>
 
-        <br>
-        <button type="submit">Add</button>
-    </form>
+                <label for="mmr">MMR Value for Next Year:</label>
+                <input type="number" name="mmr" id="mmr" step="0.01" required>
 
-    <p>
-        <a href="/">← Back to Dashboard</a>
-    </p>
+                <button type="submit" class="btn-primary">Add</button>
+
+            </form>
+        </div>
+
+        <a href="/" class="back-link">← Back to Dashboard</a>
+
+    </div>
 
 </body>
-
 </html>

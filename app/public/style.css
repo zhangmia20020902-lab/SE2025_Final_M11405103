@@ -1,0 +1,183 @@
+/* ========= GLOBAL COLORS (HappyHues palette) ========= */
+:root {
+    --bg: #f9f4ef;
+    --headline: #020826;
+    --text: #716040;
+    --button: #8c7851;
+    --button-hover: #716040;
+    --button-text: #ffffff;
+    --highlight: #f25042;
+    --stroke: #020826;
+    --card-bg: #ffffff;
+}
+
+/* ========= GLOBAL RESET ========= */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg);
+    font-family: "Inter", "Noto Sans TC", sans-serif;
+    color: var(--text);
+    line-height: 1.6;
+}
+
+/* ========= NAVBAR ========= */
+.navbar {
+    background: var(--card-bg);
+    border-bottom: 2px solid var(--stroke);
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    padding: 14px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: var(--headline);
+    font-weight: 600;
+    padding: 8px 14px;
+    border-radius: 6px;
+    transition: 0.25s;
+}
+
+.navbar a:hover {
+    background-color: var(--button);
+    color: var(--button-text);
+}
+
+.navbar .active {
+    background-color: var(--button);
+    color: var(--button-text);
+}
+
+/* ========= PAGE LAYOUT ========= */
+.page-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+}
+
+/* ========= HEADINGS ========= */
+h1, h2 {
+    color: var(--headline);
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+/* ========= FORM CARD ========= */
+.form-card {
+    background: var(--card-bg);
+    border: 2px solid var(--stroke);
+    border-radius: 10px;
+    padding: 25px;
+    margin-top: 20px;
+    box-shadow: 4px 4px 0 var(--stroke);
+}
+
+/* ========= FORM ELEMENTS ========= */
+label {
+    font-weight: 600;
+    color: var(--headline);
+}
+
+select,
+input[type="number"],
+input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    margin-top: 8px;
+    margin-bottom: 20px;
+    border: 2px solid var(--stroke);
+    background: white;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: 0.2s;
+}
+
+select:focus,
+input:focus {
+    border-color: var(--button);
+    outline: none;
+}
+
+/* ========= BUTTONS ========= */
+button,
+.btn-primary {
+    background-color: var(--button);
+    color: var(--button-text);
+    padding: 12px 20px;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.2s;
+    width: 100%;
+}
+
+button:hover,
+.btn-primary:hover {
+    background-color: var(--button-hover);
+}
+
+.btn-danger {
+    background: var(--highlight);
+    color: white;
+}
+
+.btn-danger:hover {
+    background: #c6382a;
+}
+
+/* ========= TABLE STYLING ========= */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: white;
+    border: 2px solid var(--stroke);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background-color: var(--button);
+    color: white;
+    padding: 12px;
+    font-size: 16px;
+}
+
+td {
+    padding: 12px;
+    border-top: 1px solid var(--stroke);
+}
+
+/* Zebra stripe rows */
+tr:nth-child(even) {
+    background-color: #f3ede5;
+}
+
+/* ========= BACK LINK ========= */
+.back-link {
+    display: inline-block;
+    margin-top: 25px;
+    text-decoration: none;
+    color: var(--highlight);
+    font-weight: 600;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+/* ========= UTILITY CLASSES ========= */
+.content-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
