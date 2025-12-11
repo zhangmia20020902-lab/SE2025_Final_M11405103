@@ -8,8 +8,10 @@ services:
     ports:
       - "3307:3306"
     volumes:
+      # raw CSV files
       - ./data:/var/lib/mysql-files
-      - ./ETL.sql:/docker-entrypoint-initdb.d/ETL.sql:ro
+      # correct ETL path
+      - ./mysql-init/ETL.sql:/docker-entrypoint-initdb.d/ETL.sql:ro
     networks:
       - mynet
 
