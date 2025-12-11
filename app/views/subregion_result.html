@@ -2,45 +2,38 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Subregion MMR Results</title>
+    <title>Subregion MMR</title>
     <link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
-    <!-- Navbar -->
     <%- include('partials/navbar.html', { page: 'subregion' }) %>
 
     <div class="page-container">
-        <h2>Subregion Results</h2>
 
-        <div class="table-card">
-            <table>
-                <tr>
-                    <th>Country</th>
-                    <th>Latest MMR</th>
-                    <th>Year</th>
-                </tr>
+        <h2>MMR by Subregion</h2>
 
-                <% if (data.length === 0) { %>
-                    <tr>
-                        <td colspan="3" style="text-align:center; padding: 20px;">
-                            No matching countries found
-                        </td>
-                    </tr>
-                <% } else { %>
-                    <% data.forEach(row => { %>
-                        <tr>
-                            <td><%= row.name %></td>
-                            <td><%= row.mmr %></td>
-                            <td><%= row.year %></td>
-                        </tr>
-                    <% }) %>
-                <% } %>
-            </table>
+        <div class="form-card">
+            <form action="/subregion/result" method="GET">
+
+                <label>Subregion:</label>
+                <select name="subregion" required>
+                    <% subregions.forEach(s => { %>
+                        <option value="<%= s.subregion_id %>"><%= s.subregion_name %></option>
+                    <% }); %>
+                </select>
+
+                <label>Year:</label>
+                <select name="year" required>
+                    <% years.forEach(y => { %>
+                        <option value="<%= y %>"><%= y %></option>
+                    <% }); %>
+                </select>
+
+                <button type="submit">Search</button>
+            </form>
         </div>
 
-        <a href="/subregion" class="back-link">← Back</a>
     </div>
-
 </body>
 </html>

@@ -1,11 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Country Search</title>
-
-    <!-- HTMX -->
-    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
-
+    <title>Search Countries</title>
     <link rel="stylesheet" href="/style.css">
 </head>
 
@@ -15,27 +11,17 @@
     <%- include('partials/navbar.html', { page: 'search' }) %>
 
     <div class="page-container">
-
         <h2>Search Countries</h2>
 
+        <!-- Form Card -->
         <div class="form-card">
-            <form hx-get="/search"
-                  hx-target="#result"
-                  hx-swap="innerHTML">
+            <form action="/search" method="GET" class="search-form">
+                <label>Keyword:</label>
+                <input type="text" name="q" placeholder="Type a country name..." />
 
-                <label for="searchBox">Keyword:</label>
-                <input type="text"
-                       id="searchBox"
-                       name="q"
-                       placeholder="Type a country name..."
-                       autocomplete="off">
-
-                <button type="submit" class="btn-primary">Search</button>
+                <button type="submit">Search</button>
             </form>
         </div>
-
-        <div id="result" class="table-card"></div>
-
     </div>
 
 </body>

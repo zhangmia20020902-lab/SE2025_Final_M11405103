@@ -1,45 +1,103 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Search Results</title>
     <link rel="stylesheet" href="/style.css">
+
+    <style>
+        /* 美化獨立區塊容器 */
+        .results-container {
+            max-width: 900px;
+            margin: 40px auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--headline);
+            margin-bottom: 25px;
+        }
+
+        /* 美化 Results 表格 */
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 2px solid var(--stroke);
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 4px 4px 0 var(--stroke);
+        }
+
+        .results-table th {
+            background: var(--button);
+            color: white;
+            padding: 14px;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        .results-table td {
+            padding: 14px;
+            text-align: center;
+            border-top: 1px solid var(--stroke);
+            font-size: 17px;
+        }
+
+        .results-table tr:nth-child(even) {
+            background-color: #f3ede5;
+        }
+
+        /* 返回按鈕 */
+        .back-link {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            text-decoration: none;
+            color: var(--highlight);
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 
 <body>
 
     <!-- Navbar -->
-    <%- include('partials/navbar.html', { page: 'search' }) %>
+    <%- include("partials/navbar.html", { page: "search" }) %>
 
-    <div class="page-container">
+    <div class="results-container">
 
-        <h2>Search Results</h2>
+        <h2 class="section-title">Search Results</h2>
 
-        <div class="table-card">
-            <table>
+        <!-- 結果表格 -->
+        <table class="results-table">
+            <tr>
+                <th>Country</th>
+                <th>Latest Year</th>
+                <th>MMR</th>
+            </tr>
+
+            <% if (results.length === 0) { %>
                 <tr>
-                    <th>Country</th>
-                    <th>Latest Year</th>
-                    <th>MMR</th>
+                    <td colspan="3">No results found.</td>
                 </tr>
-
-                <% if (results.length === 0) { %>
+            <% } else { %>
+                <% results.forEach(row => { %>
                     <tr>
-                        <td colspan="3" style="text-align:center; padding: 18px;">
-                            No results found.
-                        </td>
-                    </tr>
-                <% } %>
-
-                <% results.forEach(r => { %>
-                    <tr>
-                        <td><%= r.name %></td>
-                        <td><%= r.year %></td>
-                        <td><%= r.mmr %></td>
+                        <td><%= row.name %></td>
+                        <td><%= row.year %></td>   <!-- 這裡改回 year -->
+                        <td><%= row.mmr %></td>
                     </tr>
                 <% }) %>
-            </table>
-        </div>
+            <% } %>
+        </table>
 
         <a href="/search-page" class="back-link">← Back to Search</a>
 

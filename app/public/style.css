@@ -62,7 +62,8 @@ body {
 }
 
 /* ========= HEADINGS ========= */
-h1, h2 {
+h1,
+h2 {
     color: var(--headline);
     text-align: center;
     margin-bottom: 20px;
@@ -72,37 +73,63 @@ h1, h2 {
 /* ========= FORM CARD ========= */
 .form-card {
     background: var(--card-bg);
-    border: 2px solid var(--stroke);
-    border-radius: 10px;
-    padding: 25px;
+    border-radius: 16px;
+    padding: 28px 40px; /* 左右 padding 比較大，裡面欄位就算 100% 也不會撞到邊 */
     margin-top: 20px;
-    box-shadow: 4px 4px 0 var(--stroke);
+    box-shadow: 0 18px 35px rgba(0, 0, 0, 0.08);
 }
 
 /* ========= FORM ELEMENTS ========= */
+
+/* 讓 label、input、select、button 在卡片裡全部同寬、同起點 */
+.form-card label,
+.form-card select,
+.form-card input[type="number"],
+.form-card input[type="text"],
+.form-card button {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;  /* 包含 padding，不會超出卡片 */
+}
+
+/* label 本身只負責文字，不加額外縮排 */
 label {
     font-weight: 600;
     color: var(--headline);
+    margin-bottom: 6px;
 }
 
-select,
-input[type="number"],
-input[type="text"] {
-    width: 100%;
-    padding: 12px;
-    margin-top: 8px;
+/* iOS 風格凹槽 input & select */
+.form-card select,
+.form-card input[type="number"],
+.form-card input[type="text"] {
+    padding: 11px 14px;
     margin-bottom: 20px;
-    border: 2px solid var(--stroke);
-    background: white;
-    border-radius: 8px;
+    border-radius: 12px;          /* 和卡片接近的弧度，不會太圓 */
+    border: 1px solid rgba(2, 8, 38, 0.04);
+    background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.9),
+        rgba(249, 244, 239, 0.95)
+    );
+    box-shadow:
+        inset 0 1px 2px rgba(255, 255, 255, 0.9),
+        inset 0 -1px 2px rgba(0, 0, 0, 0.04);
+    outline: none;
     font-size: 15px;
-    transition: 0.2s;
+    color: var(--text);
+    transition: box-shadow 0.2s, border-color 0.2s;
 }
 
-select:focus,
-input:focus {
-    border-color: var(--button);
-    outline: none;
+/* focus 狀態，稍微加亮一點 */
+.form-card select:focus,
+.form-card input[type="number"]:focus,
+.form-card input[type="text"]:focus {
+    border-color: rgba(140, 120, 81, 0.6);
+    box-shadow:
+        inset 0 1px 2px rgba(255, 255, 255, 1),
+        inset 0 -1px 3px rgba(140, 120, 81, 0.25),
+        0 0 0 2px rgba(140, 120, 81, 0.12);
 }
 
 /* ========= BUTTONS ========= */
@@ -111,23 +138,26 @@ button,
     background-color: var(--button);
     color: var(--button-text);
     padding: 12px 20px;
-    border-radius: 8px;
-    border: none;
+    border-radius: 999px;   /* 保持你的長膠囊按鈕 */
+    border: none;           /* 你說不要深色邊框 */
     font-size: 16px;
     cursor: pointer;
     font-weight: 600;
-    transition: 0.2s;
-    width: 100%;
+    transition: background-color 0.2s, transform 0.08s;
+    width: 100%;            /* 和上面的 input/select 同寬、同起點 */
+    margin-top: 4px;
 }
 
 button:hover,
 .btn-primary:hover {
     background-color: var(--button-hover);
+    transform: translateY(-1px);
 }
 
+/* Delete 專用按鈕顏色，仍然沒有外框線 */
 .btn-danger {
     background: var(--highlight);
-    color: white;
+    color: #ffffff;
 }
 
 .btn-danger:hover {
@@ -162,6 +192,12 @@ tr:nth-child(even) {
     background-color: #f3ede5;
 }
 
+/* center all table text */
+table th,
+table td {
+    text-align: center;
+}
+
 /* ========= BACK LINK ========= */
 .back-link {
     display: inline-block;
@@ -183,7 +219,49 @@ tr:nth-child(even) {
     flex-direction: column;
 }
 
-/* center all table text */
-table th, table td {
-    text-align: center;
+/* ========= SLIDER (Year Range) ========= */
+.range-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+/* 讓 slider 左邊跟 label 同一條 */
+.range-row input[type="range"] {
+    flex: 1;  /* 左邊自動撐開 */
+}
+
+
+/* 底線顏色保持淡灰，不變 */
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 6px;
+    border-radius: 999px;
+    background: #e4e0da;
+    outline: none;
+}
+
+/* iOS 風格 thumb — 主要修改顏色 */
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #ffffff; /* 白色內芯 */
+    border: 2px solid var(--button); /* 改成你的主題棕色 */
+    box-shadow: 0 0 0 3px rgba(140, 120, 81, 0.25); /* 淡棕色光圈 */
+    cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 2px solid var(--button);
+    box-shadow: 0 0 0 3px rgba(140, 120, 81, 0.25);
+    cursor: pointer;
 }
