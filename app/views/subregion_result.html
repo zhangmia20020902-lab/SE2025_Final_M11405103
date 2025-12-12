@@ -1,39 +1,45 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Subregion MMR</title>
+    <title>Subregion MMR Result</title>
     <link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
-    <%- include('partials/navbar.html', { page: 'subregion' }) %>
+
+    <!-- Navbar -->
+    <%- include("partials/navbar.html", { page: "subregion" }) %>
 
     <div class="page-container">
-
-        <h2>MMR by Subregion</h2>
-
         <div class="form-card">
-            <form action="/subregion/result" method="GET">
 
-                <label>Subregion:</label>
-                <select name="subregion" required>
-                    <% subregions.forEach(s => { %>
-                        <option value="<%= s.subregion_id %>"><%= s.subregion_name %></option>
-                    <% }); %>
-                </select>
+            <h2 class="section-title">MMR by Subregion</h2>
 
-                <label>Year:</label>
-                <select name="year" required>
-                    <% years.forEach(y => { %>
-                        <option value="<%= y %>"><%= y %></option>
-                    <% }); %>
-                </select>
+            <table class="results-table">
+                <tr>
+                    <th>Country</th>
+                    <th>MMR</th>
+                </tr>
 
-                <button type="submit">Search</button>
-            </form>
+                <% if (data.length === 0) { %>
+                    <tr>
+                        <td colspan="2">No data found.</td>
+                    </tr>
+                <% } else { %>
+                    <% data.forEach(row => { %>
+                        <tr>
+                            <td><%= row.name %></td>
+                            <td><%= row.mmr %></td>
+                        </tr>
+                    <% }) %>
+                <% } %>
+            </table>
+
+            <a href="/subregion" class="back-link">← Back</a>
+
         </div>
-
     </div>
+
 </body>
 </html>
